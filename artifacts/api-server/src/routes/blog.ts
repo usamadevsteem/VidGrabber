@@ -160,7 +160,7 @@ const BLOG_POSTS = [
 
 router.get("/blog/posts", (req, res) => {
   const parseResult = ListBlogPostsQueryParams.safeParse(req.query);
-  const params = parseResult.success ? parseResult.data : {};
+  const params = parseResult.success ? parseResult.data : { category: undefined, limit: 6, offset: 0 };
 
   let posts = [...BLOG_POSTS];
 

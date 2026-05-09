@@ -309,11 +309,19 @@ router.get("/download/stream", (req, res) => {
       "pipe:1",
     ]);
 
-    ytProc.stdout.pipe(ffmpegProc.stdin);
-    ffmpegProc.stdout.pipe(res);
+    if (ytProc.stdout && ffmpegProc.stdin) {
+      ytProc.stdout.pipe(ffmpegProc.stdin);
+    } else {
+      return res.status(500).json({ error: "Failed to initialize streams" });
+    }
+    if (ffmpegProc.stdout) {
+      ffmpegProc.stdout.pipe(res);
+    } else {
+      return res.status(500).json({ error: "Failed to initialize output stream" });
+    }
 
-    ytProc.stderr.on("data", () => {});
-    ffmpegProc.stderr.on("data", () => {});
+    ytProc.stderr?.on("data", () => {});
+    ffmpegProc.stderr?.on("data", () => {});
 
     req.on("close", () => {
       ytProc.kill();
@@ -337,8 +345,12 @@ router.get("/download/stream", (req, res) => {
     // yt-dlp pipes merged mp4 directly to response
     const ytProc = spawn(YTDLP, ytdlpArgs);
 
-    ytProc.stdout.pipe(res);
-    ytProc.stderr.on("data", () => {});
+    if (ytProc.stdout) {
+      ytProc.stdout.pipe(res);
+    } else {
+      return res.status(500).json({ error: "Failed to initialize stream" });
+    }
+    ytProc.stderr?.on("data", () => {});
 
     req.on("close", () => ytProc.kill());
 
@@ -351,6 +363,7 @@ router.get("/download/stream", (req, res) => {
       if (code !== 0 && !res.writableEnded) res.end();
     });
   }
+  return;
 });
 
 router.get("/download/stats", (_req, res) => {
