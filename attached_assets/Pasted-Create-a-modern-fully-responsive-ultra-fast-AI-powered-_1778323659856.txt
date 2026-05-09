@@ -1,0 +1,277 @@
+Create a modern, fully responsive, ultra-fast AI-powered video downloader website similar to SaveFrom.net
+ using Lovable.dev.
+The website should support downloading videos from major social media platforms including:
+
+YouTube
+Facebook
+Instagram
+TikTok
+Twitter/X
+Vimeo
+Pinterest
+
+The website name can be “SnapFetch”, “VidGrabber”, or any premium modern brandable name.
+
+==================================================
+MAIN GOAL
+
+Build a professional SEO-optimized video downloader platform that allows users to paste a video URL and instantly download videos in multiple formats and qualities.
+
+The UI/UX should feel:
+
+Clean
+Modern
+Minimal
+Fast-loading
+Mobile-friendly
+Premium quality
+Similar to SaveFrom.net but more modern
+==================================================
+DESIGN REQUIREMENTS
+Use a modern gradient theme
+Rounded cards and smooth shadows
+Attractive hero section
+Glassmorphism effects
+Sticky navbar
+Dark/light mode toggle
+Smooth animations
+Mobile-first responsive layout
+SEO-friendly structure
+Core Web Vitals optimized
+Fast page speed optimization
+Professional typography
+
+Use:
+
+TailwindCSS
+Framer Motion animations
+React components
+Lazy loading
+Optimized images
+Clean spacing and sections
+==================================================
+PAGES REQUIRED
+Home Page
+YouTube Downloader Page
+Facebook Video Downloader Page
+Instagram Reels Downloader Page
+TikTok Video Downloader Page
+Twitter/X Video Downloader Page
+Vimeo Downloader Page
+Pinterest Video Downloader Page
+Blog Page
+Single Blog Post Page
+Contact Page
+Privacy Policy
+Terms & Conditions
+DMCA Page
+About Us Page
+==================================================
+HOME PAGE STRUCTURE
+
+Hero Section:
+
+Big heading:
+“Download Videos from YouTube, Facebook, Instagram & TikTok for Free”
+Subtitle explaining the tool
+URL input field
+Download button
+Supported platforms icons
+
+Features Section:
+
+Fast downloads
+HD quality support
+Unlimited downloads
+No registration required
+Mobile-friendly
+Secure downloads
+
+How It Works:
+Step-by-step cards:
+
+Copy video link
+Paste URL
+Click download
+Save video
+
+Supported Platforms Section:
+Cards for:
+
+YouTube
+Facebook
+Instagram
+TikTok
+Twitter/X
+Vimeo
+Pinterest
+
+FAQ Section:
+SEO-rich questions and answers.
+
+Blog Preview Section:
+Latest SEO articles.
+
+CTA Section:
+Encourage users to try downloader.
+
+Footer:
+
+Internal links
+Social links
+Copyright
+Legal pages
+==================================================
+FUNCTIONALITY REQUIREMENTS
+
+The downloader tool should:
+
+Accept video URLs
+Detect platform automatically
+Fetch video metadata
+Show thumbnail preview
+Show video title
+Provide multiple quality download buttons
+MP4 support
+MP3 extraction support for YouTube
+Copy link button
+Loading animations
+Error handling
+Invalid URL detection
+==================================================
+SEO OPTIMIZATION (VERY IMPORTANT)
+
+Generate fully SEO-optimized structure with:
+
+Semantic HTML5
+Proper H1, H2, H3 hierarchy
+SEO-rich content
+Optimized metadata
+Dynamic meta titles
+Dynamic meta descriptions
+Open Graph tags
+Twitter Card tags
+Canonical URLs
+Schema markup
+FAQ schema
+Breadcrumb schema
+Blog schema
+Sitemap.xml
+Robots.txt
+Internal linking strategy
+Keyword-rich URLs
+Fast indexing optimization
+==================================================
+TARGET SEO KEYWORDS
+
+Use these keywords naturally:
+
+Primary Keywords:
+
+video downloader
+YouTube video downloader
+Facebook video downloader
+Instagram reels downloader
+TikTok video downloader
+online video downloader
+free video downloader
+
+Secondary Keywords:
+
+download YouTube videos
+save Instagram reels
+download TikTok videos without watermark
+HD video downloader
+social media video saver
+mp4 downloader
+reels downloader online
+==================================================
+BLOG SYSTEM
+
+Create a full SEO blog system with categories:
+
+YouTube Tips
+TikTok Guides
+Instagram Tutorials
+Facebook Tricks
+Video Downloading Guides
+
+Generate sample SEO blog posts.
+
+==================================================
+TECHNICAL REQUIREMENTS
+
+Frontend:
+
+React
+Next.js
+TailwindCSS
+Framer Motion
+
+Backend/API:
+
+Node.js
+Express.js
+
+Features:
+
+API integration support
+URL parser
+Download queue
+Rate limiting
+Security headers
+Caching
+Compression
+CDN-ready structure
+==================================================
+ADS & MONETIZATION
+
+Add optimized ad placement sections for:
+
+Google AdSense
+Native ads
+Banner ads
+
+Best ad placements:
+
+Below hero section
+Between content sections
+Sidebar ads on blogs
+Sticky mobile ads
+==================================================
+EXTRA PREMIUM FEATURES
+Trending downloads section
+Recently downloaded videos
+Popular tools section
+Language switcher
+Search functionality
+AI-generated blog suggestions
+PWA support
+App-like mobile experience
+==================================================
+CONTENT WRITING STYLE
+
+Content should be:
+
+Human-written style
+SEO optimized
+High readability
+EEAT optimized
+Helpful and informative
+Unique and plagiarism-free
+==================================================
+IMPORTANT
+
+Generate:
+
+Complete responsive UI
+Production-ready code structure
+SEO-ready architecture
+Modern premium design
+High conversion layout
+Google ranking optimized structure
+Clean reusable components
+Fully scalable website system
+
+The final website should look more modern, cleaner, faster, and more premium than SaveFrom.net
+ while maintaining similar functionality.

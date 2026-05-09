@@ -3,13 +3,17 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: SnapFetch Video Downloader API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: download
+    description: Video download operations
+  - name: blog
+    description: Blog post operations
 paths:
   /healthz:
     get:
@@ -24,6 +28,110 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /download/analyze:
+    post:
+      operationId: analyzeUrl
+      tags: [download]
+      summary: Analyze a video URL
+      description: Detect platform and fetch video metadata including title, thumbnail, and available download formats
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnalyzeInput"
+      responses:
+        "200":
+          description: Video metadata with download options
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VideoInfo"
+        "400":
+          description: Invalid URL
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Unsupported platform or video unavailable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /download/stats:
+    get:
+      operationId: getDownloadStats
+      tags: [download]
+      summary: Get download statistics
+      description: Returns aggregate download counts and platform breakdown
+      responses:
+        "200":
+          description: Download statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DownloadStats"
+
+  /blog/posts:
+    get:
+      operationId: listBlogPosts
+      tags: [blog]
+      summary: List blog posts
+      description: Returns a paginated list of blog posts
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 6
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        "200":
+          description: List of blog posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BlogPost"
+
+  /blog/posts/{slug}:
+    get:
+      operationId: getBlogPost
+      tags: [blog]
+      summary: Get a single blog post
+      description: Returns a full blog post by its slug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Blog post
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlogPost"
+        "404":
+          description: Post not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +142,147 @@ components:
       required:
         - status
 
+    AnalyzeInput:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
+          description: The video URL to analyze
+
+    DownloadFormat:
+      type: object
+      required:
+        - quality
+        - format
+        - label
+        - url
+      properties:
+        quality:
+          type: string
+          description: Quality label e.g. "1080p", "720p", "360p", "Audio Only"
+        format:
+          type: string
+          description: File format e.g. "mp4", "mp3", "webm"
+        label:
+          type: string
+          description: Human-friendly label for this format
+        url:
+          type: string
+          description: Direct download URL
+        size:
+          type: ["string", "null"]
+          description: Approximate file size e.g. "45 MB"
+
+    VideoInfo:
+      type: object
+      required:
+        - title
+        - platform
+        - thumbnail
+        - duration
+        - formats
+      properties:
+        title:
+          type: string
+        platform:
+          type: string
+          description: Detected platform e.g. "youtube", "tiktok", "instagram"
+        thumbnail:
+          type: string
+          description: Thumbnail image URL
+        duration:
+          type: ["string", "null"]
+          description: Video duration e.g. "3:45"
+        author:
+          type: ["string", "null"]
+          description: Content creator name
+        formats:
+          type: array
+          items:
+            $ref: "#/components/schemas/DownloadFormat"
+
+    DownloadStats:
+      type: object
+      required:
+        - totalDownloads
+        - platformBreakdown
+        - popularFormats
+      properties:
+        totalDownloads:
+          type: integer
+        platformBreakdown:
+          type: array
+          items:
+            $ref: "#/components/schemas/PlatformStat"
+        popularFormats:
+          type: array
+          items:
+            $ref: "#/components/schemas/FormatStat"
+
+    PlatformStat:
+      type: object
+      required:
+        - platform
+        - count
+        - percentage
+      properties:
+        platform:
+          type: string
+        count:
+          type: integer
+        percentage:
+          type: number
+
+    FormatStat:
+      type: object
+      required:
+        - format
+        - count
+      properties:
+        format:
+          type: string
+        count:
+          type: integer
+
+    BlogPost:
+      type: object
+      required:
+        - id
+        - slug
+        - title
+        - excerpt
+        - content
+        - category
+        - publishedAt
+        - readTime
+      properties:
+        id:
+          type: integer
+        slug:
+          type: string
+        title:
+          type: string
+        excerpt:
+          type: string
+        content:
+          type: string
+        category:
+          type: string
+        publishedAt:
+          type: string
+        readTime:
+          type: string
+        coverImage:
+          type: ["string", "null"]
+        author:
+          type: string
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
