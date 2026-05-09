@@ -25,25 +25,25 @@ function Router() {
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/youtube-downloader">
-            {() => <PlatformDownloader platform="youtube" title="YouTube Video Downloader" />}
+            {() => <PlatformDownloader platform="YouTube" title="YouTube Video Downloader" color="text-red-500" />}
           </Route>
           <Route path="/facebook-downloader">
-            {() => <PlatformDownloader platform="facebook" title="Facebook Video Downloader" />}
+            {() => <PlatformDownloader platform="Facebook" title="Facebook Video Downloader" color="text-blue-600" />}
           </Route>
           <Route path="/instagram-downloader">
-            {() => <PlatformDownloader platform="instagram" title="Instagram Video Downloader" />}
+            {() => <PlatformDownloader platform="Instagram" title="Instagram Video Downloader" color="text-pink-600" />}
           </Route>
           <Route path="/tiktok-downloader">
-            {() => <PlatformDownloader platform="tiktok" title="TikTok Video Downloader" />}
+            {() => <PlatformDownloader platform="TikTok" title="TikTok Video Downloader" color="text-gray-900" />}
           </Route>
           <Route path="/twitter-downloader">
-            {() => <PlatformDownloader platform="twitter" title="Twitter/X Video Downloader" />}
+            {() => <PlatformDownloader platform="Twitter/X" title="Twitter/X Video Downloader" color="text-gray-900" />}
           </Route>
           <Route path="/vimeo-downloader">
-            {() => <PlatformDownloader platform="vimeo" title="Vimeo Video Downloader" />}
+            {() => <PlatformDownloader platform="Vimeo" title="Vimeo Video Downloader" color="text-blue-400" />}
           </Route>
           <Route path="/pinterest-downloader">
-            {() => <PlatformDownloader platform="pinterest" title="Pinterest Video Downloader" />}
+            {() => <PlatformDownloader platform="Pinterest" title="Pinterest Video Downloader" color="text-red-600" />}
           </Route>
           
           <Route path="/blog" component={Blog} />
@@ -66,7 +66,7 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+      <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
         <TooltipProvider>
           <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
             <Router />
