@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useAnalyzeUrl } from "@workspace/api-client-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,7 @@ export default function PlatformDownloader({ platform, title, color }: { platfor
   const [url, setUrl] = useState("");
   const analyze = useAnalyzeUrl();
 
-  const handleDownload = (e: React.FormEvent) => {
+  const handleDownload = (e: FormEvent) => {
     e.preventDefault();
     if (!url) return;
     analyze.mutate({ data: { url } });
