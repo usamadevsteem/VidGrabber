@@ -4,6 +4,24 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
+function stripSourcemapReferencesPlugin() {
+  return {
+    name: "strip-sourcemap-references",
+    enforce: "pre",
+    transform(code, id) {
+      if (id.includes("/node_modules/") && /sourceMappingURL=/.test(code)) {
+        return {
+          code: code
+            .replace(/\/\/#[ ]*sourceMappingURL=.*$/gm, "")
+            .replace(/\/*# sourceMappingURL=.*\*\//gm, ""),
+          map: null,
+        };
+      }
+      return null;
+    },
+  };
+}
+
 const rawPort = process.env.PORT || "3000";
 
 const port = Number(rawPort);
@@ -13,13 +31,15 @@ if (Number.isNaN(port) || port <= 0) {
 }
 
 const basePath = process.env.BASE_PATH || "/";
+const isProduction = process.env.NODE_ENV === "production";
 
 export default defineConfig({
   base: basePath,
   plugins: [
+    stripSourcemapReferencesPlugin(),
     react(),
     tailwindcss(),
-    runtimeErrorOverlay(),
+    ...(!isProduction ? [runtimeErrorOverlay()] : []),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
@@ -43,8 +63,21 @@ export default defineConfig({
   },
   root: path.resolve(import.meta.dirname),
   build: {
+    sourcemap: false,
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      onwarn(warning, warn) {
+        if (
+          warning.code === "SOURCEMAP_ERROR" &&
+          typeof warning.message === "string" &&
+          warning.message.includes("Can't resolve original location of error")
+        ) {
+          return;
+        }
+        warn(warning);
+      },
+    },
   },
   server: {
     port,
