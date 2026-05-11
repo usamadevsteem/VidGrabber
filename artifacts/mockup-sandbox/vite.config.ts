@@ -1,15 +1,16 @@
 import { defineConfig } from "vite";
+import type { Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 import { mockupPreviewPlugin } from "./mockupPreviewPlugin";
 
-function stripSourcemapReferencesPlugin() {
+function stripSourcemapReferencesPlugin(): Plugin {
   return {
     name: "strip-sourcemap-references",
-    enforce: "pre",
-    transform(code, id) {
+    enforce: "pre" as const,
+    transform(code: string, id: string) {
       if (id.includes("/node_modules/") && /sourceMappingURL=/.test(code)) {
         return {
           code: code
